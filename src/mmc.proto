@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package mmc;
+
+service MMCCalculator {
+  rpc calculateMMC (MMCRequest) returns (MMCResponse) {};
+}
+
+message MMCRequest {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message MMCResponse {
+  int32 mmc = 1;
+}

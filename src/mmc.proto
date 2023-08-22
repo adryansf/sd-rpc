@@ -12,10 +12,10 @@ service MMCCalculator {
 }
 
 message MMCRequest {
-  int32 a = 1;
-  int32 b = 2;
+  double a = 1;
+  double b = 2;
 }
 
 message MMCResponse {
-  int32 mmc = 1;
+  double mmc = 1;
 }

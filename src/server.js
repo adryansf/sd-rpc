@@ -18,13 +18,15 @@ const server = new grpc.Server();
 server.addService(proto.MMCCalculator.service, {
   calculateMMC: function (call, callback) {
     // Medir tempo de execução e chamar a função
-    const startTime = Date.now();
-    const mmc = calculateMMC(call.request.a, call.request.b);
-    const duration = Date.now() - startTime;
-
     console.log(
-      `Cliente: ${call.getPeer()} - Tempo de processamento: ${duration} ms`
+      `Cliente: ${call.getPeer()} - MMC entre ${call.request.a} e ${
+        call.request.b
+      }`
     );
+    console.log("Processando...");
+    console.time("Tempo de Processamento");
+    const mmc = calculateMMC(call.request.a, call.request.b);
+    console.timeEnd("Tempo de Processamento");
 
     // Retornar o MMC
     callback(null, { mmc });

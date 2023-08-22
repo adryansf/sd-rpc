@@ -3,7 +3,6 @@ const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 const path = require("path");
 const readline = require("readline/promises");
-const { parseArgs } = require("util");
 
 // Importar o Proto
 const packageDefinition = protoLoader.loadSync(

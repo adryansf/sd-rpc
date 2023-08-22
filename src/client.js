@@ -18,17 +18,24 @@ var argv = parseArgs(process.argv.slice(2), {
 });
 const target = argv.target || "localhost:50051";
 
+// Instanciar Cliente
 var client = new proto.MMCCalculator(target, grpc.credentials.createInsecure());
 
+// Criar Interface de terminal
 const terminal = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
+// Função Principal
 async function run() {
   let a, b;
+  // Número 1
   a = await terminal.question(`Digite um número: `);
+  // Número 2
   b = await terminal.question(`Digite outro número: `);
+
+  // Chamada RPC
   client.calculateMMC({ a, b }, function (error, response) {
     if (error) console.error("Erro no Servidor: ", error.message);
     console.log(`MMC: ${response.mmc}`);
@@ -36,4 +43,5 @@ async function run() {
   });
 }
 
+// Chamada da função principal
 run();

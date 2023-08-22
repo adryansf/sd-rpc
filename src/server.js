@@ -11,9 +11,13 @@ const packageDefinition = protoLoader.loadSync(
 );
 const proto = grpc.loadPackageDefinition(packageDefinition).mmc;
 
+// Instanciar Servidor
 const server = new grpc.Server();
+
+// Adicionar serviço de calcular MMC
 server.addService(proto.MMCCalculator.service, {
   calculateMMC: function (call, callback) {
+    // Medir tempo de execução e chamar a função
     const startTime = Date.now();
     const mmc = calculateMMC(call.request.a, call.request.b);
     const duration = Date.now() - startTime;
@@ -22,9 +26,12 @@ server.addService(proto.MMCCalculator.service, {
       `Cliente: ${call.getPeer()} - Tempo de processamento: ${duration} ms`
     );
 
+    // Retornar o MMC
     callback(null, { mmc });
   },
 });
+
+// Configurar porta e iniciar o servidor
 server.bindAsync(
   "0.0.0.0:50051",
   grpc.ServerCredentials.createInsecure(),

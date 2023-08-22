@@ -13,10 +13,7 @@ const packageDefinition = protoLoader.loadSync(
 const proto = grpc.loadPackageDefinition(packageDefinition).mmc;
 
 // Endereço passado por argumento
-var argv = parseArgs(process.argv.slice(2), {
-  string: "target",
-});
-const target = argv.target || "localhost:50051";
+const target = String(process.argv.slice(2)) || "localhost:50051";
 
 // Instanciar Cliente
 var client = new proto.MMCCalculator(target, grpc.credentials.createInsecure());
